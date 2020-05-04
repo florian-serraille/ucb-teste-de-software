@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>UCB - TESTE DE SOFTWARE - ALUNOS CADASTRADOS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="container">
+
+    <br>
+
+    <h2>UCB - TESTE DE SOFTWARE</h2>
+
+    <!-- Check for login error -->
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        <p>Houve um erro</p>
+    </div>
+
+    <hr>
+
+    <p>
+        Bem vindo na página do curso de teste de software
+    </p>
+
+    <div style="padding-top: 30px" class="panel-body">
+
+        <!-- Add a button -->
+        <a th:href="@{/exams/form}"
+           class="btn btn-primary btn-lg mb-3">
+            Cadastrar nova prova
+        </a>
+
+        <!-- Add a button -->
+        <a th:href="@{/students/form}"
+           class="btn btn-primary btn-lg mb-3">
+            Cadastrar novo aluno
+        </a>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr class="text-center">
+                <td>Nome do aluno</td>
+                <td>Media Ponderada</td>
+                <span th:each="exam : ${exams}">
+                    <td>
+                        <span th:text="${exam.name}" style="margin-right: 10px"/>
+                        <a th:href="@{/exams/form(examId=${exam.id})}"
+                           class="btn btn-sm btn-outline-info text-justify">
+                                      <span class="fa fa-fw fa-edit "/>
+                        </a>
+                    </td>
+                </span>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:if="${students.isEmpty()}">
+                <td th:colspan="${exams.size() + 2}"> Nenhum estudante cadastrado</td>
+            </tr>
+            <tr th:each="student : ${students}" class="text-center">
+
+                <td>
+                    <span th:text="${student.name} + ' ' + ${student.lastName}" style="margin-right: 10px"/>
+                    <a th:href="@{/students/form(studentId=${student.id})}"
+                       class="btn btn-sm btn-outline-info text-justify">
+                        <span class="fa fa-fw fa-edit "/>
+                    </a>
+                </td>
+                <td th:text="${student.averageMark}"/>
+                <span th:each="mark : ${student.getMarks()}">
+                    <td th:text="${mark.getMark()}">
+                </span>
+            </tr>
+            </tbody>
+
+        </table>
+
+        <hr>
+
+    </div>
+</div>
+
+</body>
+
+</html>

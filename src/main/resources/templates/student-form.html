@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>UCB - TESTE DE SOFTWARE - NOVO ESTUDANTE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+
+    <h2>
+        <td th:text="${student.id} ? 'ATUALIZAR ESTUDANTE' : 'CADASTRAR NOVO ESTUDANTE'" class="h2"/>
+    </h2>
+
+    <hr>
+
+    <div style="padding-top: 30px" class="panel-body">
+
+
+        <form action="#" th:action="@{/students}"
+              th:object="${student}" method="POST">
+
+            <!-- Add hidden form field to handle update -->
+            <input type="hidden" th:field="*{id}"/>
+
+            <input type="text" th:field="*{name}"
+                   class="form-control mb-4 col-4" placeholder="Nome" required>
+
+            <input type="text" th:field="*{lastName}"
+                   class="form-control mb-4 col-4" placeholder="Sobrenome" required>
+
+            <input type="email" th:field="*{email}"
+                   class="form-control mb-4 col-4" placeholder="Email" required>
+
+            <button type="submit" class="btn btn-info col-2">Salvar</button>
+
+            <!-- Add "delete" button/link -->
+            <a th:if="${student.id}" th:href="@{/students/delete(studentId=${student.id})}"
+               class="btn btn-danger col-2"
+               onclick="if (!(confirm('Confirma querer remover este estudante?'))) return false">
+                Deletar
+            </a>
+
+        </form>
+
+        <hr>
+        <a th:href="@{/}">Voltar à pagina inicial</a>
+    </div>
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

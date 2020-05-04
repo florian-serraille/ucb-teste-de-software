@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>UCB - TESTE DE SOFTWARE - PROVA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+
+    <h2>
+        <td th:text="${exam.id} ? 'ATUALIZAR PROVA' : 'CADASTRAR NOVA PROVA'" class="h2"/>
+    </h2>
+
+    <hr>
+
+    <div style="padding-top: 30px" class="panel-body">
+
+
+        <div>
+
+            <form action="#" th:action="@{/exams}"
+                  th:object="${exam}" method="POST">
+
+                <!-- Add hidden form field to handle update -->
+                <input type="hidden" th:field="*{id}"/>
+
+                <input type="text" th:field="*{name}"
+                       class="form-control mb-4 col-4" placeholder="Nome" required>
+
+                <input type="text" th:field="*{description}"
+                       class="form-control mb-4 col-4" placeholder="Descrição" required>
+
+                <input type="date" th:field="*{date}"
+                       class="form-control mb-4 col-4" placeholder="Data" required>
+
+                <input type="number" step="1" min="0" th:field="*{weight}"
+                       class="form-control mb-4 col-4" placeholder="Peso" required>
+
+                <button type="submit" class="btn btn-info col-2">Salvar</button>
+                <!-- Add "delete" button/link -->
+                <a th:if="${exam.id}" th:href="@{/exams/delete(examId=${exam.id})}"
+                   class="btn btn-danger col-2"
+                   onclick="if (!(confirm('Confirma querer remover esta prova?'))) return false">
+                    Deletar
+                </a>
+
+            </form>
+
+            <hr>
+
+            <a th:href="@{/}">Voltar à pagina inicial</a>
+
+        </div>
+
+        <div th:if="${exam.id}" style="padding-top: 30px" class="panel-body">
+
+            <hr>
+
+            <h2>ATRIBUIR NOTAS</h2>
+
+            <hr>
+
+            <div style="padding-top: 30px" class="panel-body">
+
+                <form action="#" th:action="@{/exams/marks(examId=${exam.id})}" th:object="${examMarks}"
+                      method="post">
+
+                    <button type="submit" class="btn btn-info col-2">Salvar</button>
+
+                    <br><br>
+
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                        <tr class="text-center">
+                            <td>Nome do aluno</td>
+                            <td>Nota</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:if="${exam.getStudent().isEmpty()}">
+                            <td colspan="2"> Nenhum estudante cadastrado</td>
+                        </tr>
+                        <tr th:each="marks, itemStat : ${exam.marks}" class="text-center">
+
+                            <td th:text="${marks.student.name} + ' ' + ${marks.student.lastName}"/>
+                            <td><input th:placeholder="Nota" th:field="${examMarks.marks[__${itemStat.index}__].mark}"
+                                       th:value="${marks.mark}" type="number" step=".01" min="0" max="10"/>
+                            </td>
+                            <td hidden><input th:field="${examMarks.marks[__${itemStat.index}__].markId}"
+                                              th:value="${marks.id}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </form>
+
+                <hr>
+
+                <a th:href="@{/}">Voltar à pagina inicial</a>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
