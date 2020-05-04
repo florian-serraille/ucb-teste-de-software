@@ -29,13 +29,16 @@
             <!-- Add hidden form field to handle update -->
             <input type="hidden" th:field="*{id}"/>
 
-            <input type="text" th:field="*{name}"
+            <label for="name">Nome: </label>
+            <input id="name" type="text" th:field="*{name}"
                    class="form-control mb-4 col-4" placeholder="Nome" required>
 
-            <input type="text" th:field="*{lastName}"
+            <label for="lastName">Sobrenome: </label>
+            <input id="lastName" type="text" th:field="*{lastName}"
                    class="form-control mb-4 col-4" placeholder="Sobrenome" required>
 
-            <input type="email" th:field="*{email}"
+            <label for="email">Email: </label>
+            <input id="email" type="email" th:field="*{email}"
                    class="form-control mb-4 col-4" placeholder="Email" required>
 
             <button type="submit" class="btn btn-info col-2">Salvar</button>

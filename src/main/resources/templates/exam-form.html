@@ -31,16 +31,20 @@
                 <!-- Add hidden form field to handle update -->
                 <input type="hidden" th:field="*{id}"/>
 
-                <input type="text" th:field="*{name}"
+                <label for="name">Nome: </label>
+                <input id="name" type="text" th:field="*{name}"
                        class="form-control mb-4 col-4" placeholder="Nome" required>
 
-                <input type="text" th:field="*{description}"
+                <label for="description">Sobrenome: </label>
+                <input id="description" type="text" th:field="*{description}"
                        class="form-control mb-4 col-4" placeholder="Descrição" required>
 
-                <input type="date" th:field="*{date}"
+                <label for="date">Data: </label>
+                <input id="date" type="date" th:field="*{date}"
                        class="form-control mb-4 col-4" placeholder="Data" required>
 
-                <input type="number" step="1" min="0" th:field="*{weight}"
+                <label for="weight">Peso: </label>
+                <input id="weight" type="number" step="1" min="0" th:field="*{weight}"
                        class="form-control mb-4 col-4" placeholder="Peso" required>
 
                 <button type="submit" class="btn btn-info col-2">Salvar</button>
@@ -91,10 +95,12 @@
                         <tr th:each="marks, itemStat : ${exam.marks}" class="text-center">
 
                             <td th:text="${marks.student.name} + ' ' + ${marks.student.lastName}"/>
-                            <td><input th:placeholder="Nota" th:field="${examMarks.marks[__${itemStat.index}__].mark}"
+                            <td>
+                                <input th:placeholder="Nota" th:field="${examMarks.marks[__${itemStat.index}__].mark}"
                                        th:value="${marks.mark}" type="number" step=".01" min="0" max="10"/>
                             </td>
-                            <td hidden><input th:field="${examMarks.marks[__${itemStat.index}__].markId}"
+                            <td hidden>
+                                <input th:field="${examMarks.marks[__${itemStat.index}__].markId}"
                                               th:value="${marks.id}"/>
                             </td>
                         </tr>
